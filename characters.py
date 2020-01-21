@@ -2,7 +2,7 @@ import numpy as np
 import colorama
 from colorama import Fore,Back,Style
 import os
-
+from background import *
 colorama.init()
 class Obstacles:
 	def __init__(self,size,temp):
@@ -21,7 +21,7 @@ class Obstacles:
 	def Cleaner (self):
 		for i in range(self.size):
 			for j in range(self.size):
-				self.inp[i][j]=" "
+				self.temp[i][j]=" "
 	def Printarr (self):
 		for i in range(self.size):
 			for j in range(self.size):
@@ -46,6 +46,17 @@ class Slant(Obstacles):
 						self.temp[i][j+1]="/"
 		return self.temp
 
+class coins():
+	def __init__(self,size,char):
+		self.size=size
+		self.char=char
+	def make_coin(self,inp_row,inp_col):
+		for i in range(self.size):
+			for j in range(self.size):
+				if inp[inp_row+i][inp_col+j]==" ":
+					inp[inp_row+i][inp_col+j]='$'
+				else:
+					continue
 #obj.make_slant()
 #temp=obj3.Straight()
 #obj.Horizontal()

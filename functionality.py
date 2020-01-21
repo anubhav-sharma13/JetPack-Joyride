@@ -16,11 +16,7 @@ class render():
 	def placement(self):
 		for i in range(self.size):
 			for j in range(self.size):
-				if self.out[self.idx_r+i][self.idx_c+j] == " " :
-					self.out[self.idx_r+i][self.idx_c+j]=self.inp[i][j]
-				else:
-					continue
-
+				self.out[self.idx_r+i][self.idx_c+j]=self.inp[i][j]
 
 
 

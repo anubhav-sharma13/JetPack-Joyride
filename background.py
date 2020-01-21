@@ -25,7 +25,7 @@ class On_screen:
 		for i in range(6):
 			for j in range(self.col_in,self.col):
 				print(Fore.CYAN+inp[i][j],end="")
-			print("")	
+			print(Style.RESET_ALL)	
 	def printbody(self):
 		for i in range(6,self.row-3):
 			for j in range(self.col_in,self.col):
