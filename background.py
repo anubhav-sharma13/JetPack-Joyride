@@ -45,4 +45,4 @@ row=int(rows)-2
 col=int(columns)-2
 #print(row)
 inp=np.full((row,col*100),' ')
-inp[25][25]="1"
+inp[35][25]="1"

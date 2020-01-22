@@ -19,14 +19,15 @@ class Obstacles:
 			self.temp[1][i]='-'
 		return self.temp
 	def Cleaner (self):
-		for i in range(self.size):
-			for j in range(self.size):
+		for i in range(self.size-1):
+			for j in range(self.size-1):
 				self.temp[i][j]=" "
 	def Printarr (self):
 		for i in range(self.size):
 			for j in range(self.size):
 				print(self.temp[i][j],end="")
 			print()
+#here I have used polymorphism
 class Slant(Obstacles):
 	def __init__(self,size,temp,direction):
 		super().__init__(size,temp)
@@ -45,6 +46,10 @@ class Slant(Obstacles):
 						self.temp[i][j]="/"
 						self.temp[i][j+1]="/"
 		return self.temp
+	def Cleaner (self):
+		for i in range(self.size):
+			for j in range(self.size):
+				self.temp[i][j]=" "
 
 class coins():
 	def __init__(self,size,char):
@@ -57,10 +62,10 @@ class coins():
 					inp[inp_row+i][inp_col+j]='$'
 				else:
 					continue
-#obj.make_slant()
-#temp=obj3.Straight()
-#obj.Horizontal()
-#obj.Printarr()
+
+
+
+
 
 
 
