@@ -63,6 +63,77 @@ class coins():
 				else:
 					continue
 
+class bullet():
+	jump=4
+	life_flag=0
+	def __init__(self,xcordinate,ycordinate,symbol):
+		self.xcordinate=xcordinate
+		self.ycordinate=ycordinate
+		self.symbol=symbol
+
+	def make_bullet(self):
+		inp[self.xcordinate+1][self.ycordinate+1]=self.symbol
+
+	def clear_bullet(self):
+		if inp[self.xcordinate][self.ycordinate]=='$':
+			inp[self.xcordinate][self.ycordinate]=='$'
+		else:
+			inp[self.xcordinate][self.ycordinate]=" "
+
+	def move_bullet(self):
+		if inp[self.xcordinate][self.ycordinate+self.jump]=='$':
+			inp[self.xcordinate][self.ycordinate+self.jump]="$"
+		else:
+			inp[self.xcordinate][self.ycordinate+self.jump]=self.symbol
+
+	def destroy(self):
+
+		tempo=min(row-self.xcordinate,10)
+
+		for i in range(tempo):
+			for j in range(10):
+				if inp[self.xcordinate+i][self.ycordinate+j]=='/' or inp[self.xcordinate+i][self.ycordinate+j]=='\\' or inp[self.xcordinate+i][self.ycordinate+j] =='|' or inp[self.xcordinate+i][self.ycordinate+j] == '-':
+					inp[self.xcordinate+i][self.ycordinate+j]=' '
+					self.life_flag=1
+
+		tempo2=min(self.xcordinate-5,10)
+
+		for i in range(tempo2):
+				for j in range(10):
+					if inp[self.xcordinate+i-10][self.ycordinate+j]=='/' or inp[self.xcordinate+i-10][self.ycordinate+j]=='\\' or inp[self.xcordinate+i-10][self.ycordinate+j] =='|' or inp[self.xcordinate+i-10][self.ycordinate+j] == '-':
+						inp[self.xcordinate+i-10][self.ycordinate+j]=' '
+						self.life_flag=1
+
+		for i in range(tempo):
+			for j in range(10):
+				if inp[self.xcordinate+i][self.ycordinate+j-10]=='/' or inp[self.xcordinate+i][self.ycordinate+j-10]=='\\' or inp[self.xcordinate+i][self.ycordinate+j-10] =='|' or inp[self.xcordinate+i][self.ycordinate+j-10] == '-':
+					inp[self.xcordinate+i][self.ycordinate+j-10]=" "
+					self.life_flag=1
+
+		for i in range(tempo2):
+				for j in range(10):
+					if inp[self.xcordinate+i-10][self.ycordinate+j+10]=='/' or inp[self.xcordinate+i-10][self.ycordinate+j+10]=='\\' or inp[self.xcordinate+i-10][self.ycordinate+j+10] =='|' or inp[self.xcordinate+i-10][self.ycordinate+j+10] == '-':
+						inp[self.xcordinate+i-10][self.ycordinate+j+10]=' '
+						self.life_flag=1
+
+		for i in range(tempo):
+			for j in range(10):
+				if inp[self.xcordinate+i][self.ycordinate+j+10]=='/' or inp[self.xcordinate+i][self.ycordinate+j+10]=='\\' or inp[self.xcordinate+i][self.ycordinate+j+10] =='|' or inp[self.xcordinate+i][self.ycordinate+j+10] == '-':
+					inp[self.xcordinate+i][self.ycordinate+j+10]=" "
+					self.life_flag=1
+
+		for i in range(tempo2):
+				for j in range(10):
+					if inp[self.xcordinate+i-10][self.ycordinate+j-10]=='/' or inp[self.xcordinate+i-10][self.ycordinate+j-10]=='\\' or inp[self.xcordinate+i-10][self.ycordinate+j-10] =='|' or inp[self.xcordinate+i-10][self.ycordinate+j-10] == '-':
+						inp[self.xcordinate+i-10][self.ycordinate+j-10]=' '
+						self.life_flag=1
+
+
+	def destroy_inpath(self):
+		for i in range(self.jump):
+			if inp[self.xcordinate][self.ycordinate+i]=='\\' or inp[self.xcordinate][self.ycordinate+i]=='/' or inp[self.xcordinate][self.ycordinate+i]=='|' or inp[self.xcordinate][self.ycordinate+i]=='-':
+				self.destroy()
+
 
 
 

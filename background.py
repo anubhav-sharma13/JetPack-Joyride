@@ -22,7 +22,7 @@ class On_screen:
 				inp[i][j]=character
 		
 	def printsky(self):
-		for i in range(6):
+		for i in range(1,6):
 			for j in range(self.col_in,self.col):
 				print(Fore.CYAN+inp[i][j],end="")
 			print(Style.RESET_ALL)	

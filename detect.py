@@ -40,7 +40,7 @@ class detect_things():
 					if inp[self.position_x+i][self.position_y+j]=='/' or inp[self.position_x+i][self.position_y+j]=='\\' or inp[self.position_x+i][self.position_y+j] =='|' or inp[self.position_x+i][self.position_y+j] == '-':
 						inp[self.position_x+i][self.position_y+j]=' '
 
-			tempo2=min(self.position_x-5,10)
+			tempo2=min(self.position_x,10)
 			for i in range(tempo2):
 					for j in range(10):
 						if inp[self.position_x+i-10][self.position_y+j]=='/' or inp[self.position_x+i-10][self.position_y+j]=='\\' or inp[self.position_x+i-10][self.position_y+j] =='|' or inp[self.position_x+i-10][self.position_y+j] == '-':
@@ -79,7 +79,7 @@ class detect_things():
 					if inp[self.position_x+i][self.position_y+j]=='/' or inp[self.position_x+i][self.position_y+j]=='\\' or inp[self.position_x+i][self.position_y+j] =='|' or inp[self.position_x+i][self.position_y+j] == '-':
 						inp[self.position_x+i][self.position_y+j]=' '
 
-			tempo2=min(self.position_x-5,10)
+			tempo2=min(self.position_x,10)
 			for i in range(tempo2):
 					for j in range(10):
 						if inp[self.position_x+i-10][self.position_y+j]=='/' or inp[self.position_x+i-10][self.position_y+j]=='\\' or inp[self.position_x+i-10][self.position_y+j] =='|' or inp[self.position_x+i-10][self.position_y+j] == '-':

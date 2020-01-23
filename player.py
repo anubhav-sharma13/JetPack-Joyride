@@ -6,11 +6,12 @@ from alarmexception import *
 from functionality import *
 from background import *
 from detect import *
+from characters import bullet
 import time
 class Magnet():
 	def __init__(self,char1,char2):
 		self.char1=char1
-		self.char2=char2
+		self.char2=char2	
 	#mag_arr=np.full((2,10)," ")
 	mag_arr=[]
 	def make_magnet(self):
@@ -26,10 +27,10 @@ obj8=Magnet("M","M")
 obj8.make_magnet()
 
 class Player:
-	man = [['O','O','O'],['<','|','>'],['/',' ','\\']]
-	lives=4
+	_man = [['O','O','O'],['<','|','>'],['/',' ','\\']]
+	_lives=4
 	grav_factor=0
-	coins=0
+	_coins=0
 	nitros_flag=0
 	nitros_time=0
 	shield_flag=0
@@ -39,10 +40,65 @@ class Player:
 	step=1
 
 	def __init__(self,name,xcordi,ycordi,weight):
-		self.name=name
-		self.xcordi=xcordi
-		self.ycordi=ycordi
-		self.weight=weight
+		self._name=name
+		self._xcordi=xcordi
+		self._ycordi=ycordi
+		self._weight=weight
+
+	@property
+	def name(self):
+		return self._name
+	
+	@property
+	def weight(self):
+		return self._weight
+	
+	@property
+	def xcordi(self):
+		return self._xcordi
+	@property
+	def ycordi(self):
+		return self._ycordi
+	
+	@property
+	def coins(self):
+		return self._coins
+	
+
+	@property
+	def man(self):
+		return self._man
+
+	@property
+	def lives(self):
+		return self._lives
+	@property
+	def coins(self):
+		return self._coins
+	@weight.setter
+	def weight(self,x):
+		self._weight=x
+	@name.setter
+	def name(self,x):
+		self._name=x
+	@coins.setter
+	def coins(self,x):
+		self._coins=x
+
+
+	@ycordi.setter
+	def ycordi(self,x):
+		self._ycordi=x
+	@lives.setter
+	def lives(self,x):
+		self._lives=x
+
+	@xcordi.setter
+	def xcordi(self,x):
+		self._xcordi=x
+	@man.setter
+	def man(self,x):
+		self._man=x
 
 	def render_player(self):
 		obj5=render(self.xcordi,self.ycordi,3,self.man,inp)
@@ -57,7 +113,7 @@ class Player:
 		clr=np.full((3,3)," ")
 		obj5=render(self.xcordi,self.ycordi,3,clr,inp)
 		obj5.placement()
-	def move_player(self,init_c,final_c):
+	def move_player(self,init_c,final_c,list_of_bulls):
 
 
 		def alarmhandler(signum, frame):
@@ -86,7 +142,7 @@ class Player:
 		for i in obj8.mag_arr:
 			if i[1]-self.ycordi<30 and i[1]-self.ycordi > 0:
 				self.clear_player()
-				self.ycordi=self.ycordi+4
+				self.ycordi=self.ycordi+2
 				detector = detect_things(self.xcordi, self.ycordi)
 				detector.detect_coins(self)
 				detector.detect_obstacles(self)
@@ -96,7 +152,7 @@ class Player:
 				del detector
 			if self.ycordi - i[1] < 30 and self.ycordi - i[1] > 0:
 				self.clear_player()
-				self.ycordi=self.ycordi-3
+				self.ycordi=self.ycordi-1
 				detector = detect_things(self.xcordi, self.ycordi)
 				detector.detect_coins(self)
 				detector.detect_obstacles(self)
@@ -111,11 +167,12 @@ class Player:
 			quit()
 
 		if char=='w' and self.xcordi>7:
+			self.grav_factor=0
 			self.clear_player()
 			if self.nitros_flag==0:
-				self.xcordi=self.xcordi-3
+				self.xcordi=self.xcordi-2
 			else:
-				self.xcordi=self.xcordi-3
+				self.xcordi=self.xcordi-2
 			detector = detect_things(self.xcordi, self.ycordi)
 			detector.detect_coins(self)
 			detector.detect_obstacles(self)
@@ -124,14 +181,15 @@ class Player:
 			obj5=render(self.xcordi,self.ycordi,3,self.man,inp)
 			obj5.placement()
 			del detector
-			self.grav_factor=0
+			
 
 		if char=='d' and self.ycordi< final_c-4:
+			self.grav_factor=0
 			self.clear_player()
 			if self.nitros_flag==0:
-			 	self.ycordi=self.ycordi+4
+			 	self.ycordi=self.ycordi+3
 			else:
-			 	self.ycordi=self.ycordi+6
+			 	self.ycordi=self.ycordi+4
 			detector = detect_things(self.xcordi, self.ycordi)
 			detector.detect_coins(self)
 			detector.detect_obstacles(self)
@@ -139,9 +197,10 @@ class Player:
 			obj5=render(self.xcordi,self.ycordi,3,self.man,inp)
 			obj5.placement()
 			del detector
-			self.grav_factor=1
+			
 		#move left with the condition
 		if char=='a' and self.ycordi>init_c+2:
+			self.grav_factor=0
 			self.clear_player()
 			self.ycordi=self.ycordi-3
 			detector = detect_things(self.xcordi, self.ycordi)
@@ -151,7 +210,6 @@ class Player:
 			obj5=render(self.xcordi,self.ycordi,3,self.man,inp)
 			obj5.placement()
 			del detector
-			self.grav_factor=0
 
 		#activate the shield
 		if char==' ' and self.shield_permission==1:
@@ -161,24 +219,25 @@ class Player:
 		if char=='n' and self.nitros_permission == 1 :
 			self.nitros_time=time.time()
 			self.nitros_flag=1
-			self.step=3
+			self.step=2
+		if char=="b":
+			obj9=bullet(self.xcordi,self.ycordi,"%")
+			obj9.make_bullet()
+			list_of_bulls.append(obj9)
 
 		#Gravity
 		if self.xcordi<row-6:
 			self.clear_player()
-			if self.grav_factor<8:
+			if self.grav_factor<4:
 				self.grav_factor+=1
 			else:
-				self.grav_factor=1
-			#self.xcordi=min(self.xcordi+self.grav_factor,row-6)
-			tempo=0
-			while(tempo<self.grav_factor):
-				tempo+=1
-				self.xcordi=min(self.xcordi+tempo,row-6)
-				detector = detect_things(self.xcordi, self.ycordi)
-				detector.detect_coins(self)
-				detector.detect_obstacles(self)
-				detector.break_obstacles(self)
+				self.grav_factor=3
+		#self.xcordi=min(self.xcordi+self.grav_factor,row-6)
+			self.xcordi=min(self.xcordi+self.grav_factor,row-6)
+			detector = detect_things(self.xcordi, self.ycordi)
+			detector.detect_coins(self)
+			detector.detect_obstacles(self)
+			detector.break_obstacles(self)
 			obj5=render(self.xcordi,self.ycordi,3,self.man,inp)
 			obj5.placement()
 			#del detector
