@@ -43,6 +43,5 @@ class On_screen:
 rows, columns =os.popen('stty size', 'r').read().split()
 row=int(rows)-2
 col=int(columns)-2
-#print(row)
 inp=np.full((row,col*100),' ')
-inp[35][25]="1"
+#inp[35][25]="1"

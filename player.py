@@ -10,18 +10,22 @@ from characters import bullet
 import time
 class Magnet():
 	def __init__(self,char1,char2):
-		self.char1=char1
-		self.char2=char2	
+		self._char1=char1
+		self._char2=char2	
 	#mag_arr=np.full((2,10)," ")
-	mag_arr=[]
+	mag_arr=[]	
 	def make_magnet(self):
-		for i in range(5):
+		for o in range(5):
 			rand_x=random.randint(7,30)
-			rand_y=random.randrange(150,5000,200)
+			rand_y=random.randrange(150,5000,450)
+			#print(rand_y)
 			self.mag_arr.append([rand_x,rand_y])
-			inp[rand_x][rand_y+0]=self.char1
-			inp[rand_x][rand_y+1]=self.char2
-
+			inp[rand_x][rand_y+0]=self.Char1()
+			inp[rand_x][rand_y+1]=self.Char2()
+	def Char1(self):
+		return self._char1
+	def Char2(self):
+		return self._char2
 
 obj8=Magnet("M","M")
 obj8.make_magnet()
